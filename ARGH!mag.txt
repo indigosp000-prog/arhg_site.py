@@ -1,0 +1,67 @@
+import streamlit as st
+import random
+
+models = [
+    {
+        "name": "NOIR",
+        "look": "long black hair, blunt bangs, pale skin",
+        "bio": "luxury hiding emotional decay",
+        "ph": "controlled fiction"
+    },
+    {
+        "name": "VANTA",
+        "look": "cold eyes, sharp bangs, glossy skin",
+        "bio": "presence without permission",
+        "ph": "dangerous beauty"
+    },
+    {
+        "name": "HEX",
+        "look": "wet hair, smeared makeup, metallic accents",
+        "bio": "emotional elegance",
+        "ph": "controlled tension"
+    }
+]
+
+def generate():
+    m = random.choice(models)
+
+    prompt = f"""
+deep crimson background,
+close-up portrait of young woman,
+{m['look']},
+gothic luxury fashion,
+psychological tension,
+cinematic lighting,
+film grain aesthetic
+""".strip()
+
+    return m, prompt
+
+
+st.set_page_config(page_title="ARHG!", layout="wide")
+
+st.title("ARHG! MAGAZINE SYSTEM")
+st.write("psychological fashion generator")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    if st.button("CLOSEUP"):
+        m, p = generate()
+        st.write(m["name"])
+        st.code(p)
+
+with col2:
+    if st.button("INFO"):
+        m, p = generate()
+        st.write(m["name"])
+        st.code(p)
+        st.write(m["bio"])
+        st.write(m["ph"])
+
+with col3:
+    if st.button("DROP"):
+        for i in range(3):
+            m, p = generate()
+            st.markdown(f"### IMAGE {i+1} — {m['name']}")
+            st.code(p)
